@@ -10,6 +10,10 @@
     "dev": "clear && nodemon index.js"
   },
   "author": "Ramit Mitra",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ramit-mitra/code-watchdog.git"
+  },
   "license": "MIT",
   "dependencies": {
     "node-watch": "^0.5.8",
