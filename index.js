@@ -34,8 +34,8 @@ if (!shell.which('npm')) {
 }
 // 3. validate if composer is present
 if (!shell.which('composer')) {
-  shell.echo('\x1b[31mSorry, this script requires COMPOSER');
-  shell.exit(1);
+    shell.echo('\x1b[31mSorry, this script requires COMPOSER');
+    shell.exit(1);
 }
 // 4. validate if other packages are available
 // a. phpcs/phpcbf

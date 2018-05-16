@@ -1,4 +1,4 @@
-module.exports = function (DIR) {    
+module.exports = function (DIR) {
     console.log('\033[1;35m--------------------------------------------------------');
     console.log('\033[1;35mCODE WATCHDOG v1.0');
     console.log('\033[1;35m--------------------------------------------------------');
