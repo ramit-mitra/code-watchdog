@@ -80,12 +80,8 @@ watch(config.dir, {
     recursive: true,
     delay: 555
 }, function (event, name) {
-    // console.log('%s event.', event);
-    // console.log('%s changed.', name);
-    // console.log(path.extname(name));
-
-    console.log('\033[0;93m✱ File \033[1;32m%s \033[0;93mchanged\033[0;37m', name);
-    console.log('\033[0;93m✚ Executing validator\033[0;37m');
+    /* notify about filechange */
+    console.log('\033[0;93m✚ File \033[1;32m%s \033[0;93mchanged\033[0;37m', name);
 
     /* now we hook custom actions based on filetype */
     // triggered on create or modify
@@ -114,4 +110,6 @@ watch(config.dir, {
     else if (event == 'remove') {
 
     }
+    /* finally */
+    console.log('\033[0;93m✔ File Validated\033[0;37m');
 });
