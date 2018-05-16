@@ -98,6 +98,6 @@ watch(config.dir, {
     }
     else if (event == 'remove') {
         /* triggered on removal of the file */
-        console.log('\033[0;91m✚ File \033[0;95m%s \033[0;91mremoved\033[0;37m', name);
+        console.log('\033[0;91m✖ File \033[0;95m%s \033[0;91mremoved\033[0;37m', name);
     }
 });
