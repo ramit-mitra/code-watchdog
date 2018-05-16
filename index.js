@@ -8,6 +8,7 @@
 const watch = require('node-watch');
 const path = require('path');
 const shell = require('shelljs');
+const fs = require('fs');
 
 /* loading configuration */
 const config = require('./config/config');
@@ -75,43 +76,28 @@ if (!shell.which('stylelint')) {
 // 5. FINALLY !
 shell.echo('\033[1;32m✓ ALL DEPENDENCIES ARE PRESENT\x1b[37m\n');
 
-/* INITIATE WATCHDOG ACTIVITY  */
+/* INITIATE WATCHDOG */
 watch(config.dir, {
     recursive: true,
     delay: 555
 }, function (event, name) {
-    // console.log('%s event.', event);
-    // console.log('%s changed.', name);
-    // console.log(path.extname(name));
-
-    console.log('\033[0;93m✱ File \033[1;32m%s \033[0;93mchanged\033[0;37m', name);
-    console.log('\033[0;93m✚ Executing validator\033[0;37m');
-
-    /* now we hook custom actions based on filetype */
-    // triggered on create or modify
     if (event == 'update') {
-        switch (path.extname(name)) {
-            case '.php':
-                //a. run phpcbf
-                console.log('\033[1;35mRunning PHPCBF to fix possible syntactical issues\033[0;37m');
-                shell.exec('phpcbf --standard=PSR2 ' + name);
-                break;
-            case '.css':
-                //a. run css linting in fix mode
-                // shell.exec('pwd');
-                shell.exec('stylelint "' + name + '" --fix');
-                break;
-            case '.js':
-                //a. run js linting in fix mode
-                shell.exec('eslint "' + name + '" --fix');
-                break;
-            default:
-                /* hook any default action if needed */
-                break;
+        /* triggered on create or modification of files */
+        /* notify about filechange */
+        console.log('\033[0;93m✚ File \033[1;32m%s \033[0;93mchanged\033[0;37m', name);
+
+        //a. check if a hook is present for this modified file filetype
+        if (fs.existsSync('./hook/' + path.extname(name) + '.js')) {
+            //b. hook available, proceed to execution
+            var act = require('./hook/' + path.extname(name))(name);
+            console.log('\033[1;35m ☁ Running ' + act.name + ' to fix possible syntactical issues\033[0;37m');
+            shell.exec(act.command);
+            //c. finally
+            console.log('\033[0;93m✔ File Validated\033[0;37m');
         }
     }
-    // triggered on delete
     else if (event == 'remove') {
-
+        /* triggered on removal of the file */
+        console.log('\033[0;91m✚ File \033[0;95m%s \033[0;91mremoved\033[0;37m', name);
     }
 });

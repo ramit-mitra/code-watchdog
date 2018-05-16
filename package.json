@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "setup": "clear && npm install",
+    "setup": "clear && npm install && eslint --init",
     "watch": "clear && node index.js",
     "dev": "clear && nodemon index.js"
   },
