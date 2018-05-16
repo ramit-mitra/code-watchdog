@@ -1,0 +1,16 @@
+{
+  "name": "code-watchdog",
+  "version": "1.0.0",
+  "description": "A simple app to check for filesystem changes and hook custom actions on it.",
+  "main": "index.js",
+  "dependencies": {
+    "node-watch": "^0.5.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Ramit Mitra",
+  "license": "MIT"
+}
