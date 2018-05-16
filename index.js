@@ -93,11 +93,11 @@ watch(config.dir, {
             console.log('\033[1;35m ☁ Running ' + act.name + ' to fix possible syntactical issues\033[0;37m');
             shell.exec(act.command);
             //c. finally
-            console.log('\033[0;93m✔ File Validated\033[0;37m');
+            console.log('\033[0;93m✔ File Validated\033[0;37m\n');
         }
     }
     else if (event == 'remove') {
         /* triggered on removal of the file */
-        console.log('\033[0;91m✖ File \033[0;95m%s \033[0;91mremoved\033[0;37m', name);
+        console.log('\033[0;91m✖ File \033[0;95m%s \033[0;91mremoved\033[0;37m\n', name);
     }
 });
