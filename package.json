@@ -1,16 +1,18 @@
 {
   "name": "code-watchdog",
   "version": "1.0.0",
-  "description": "A simple app to check for filesystem changes and hook custom actions on it.",
+  "description": "A simple app to check for filesystem changes and hook custom actions on it",
   "main": "index.js",
-  "dependencies": {
-    "node-watch": "^0.5.8"
-  },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "setup": "clear && npm install",
+    "watch": "clear && node index.js",
+    "dev": "clear && nodemon index.js"
   },
   "author": "Ramit Mitra",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "node-watch": "^0.5.8",
+    "shelljs": "^0.8.2"
+  }
 }
