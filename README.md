@@ -1,37 +1,20 @@
-## Code Watchdog
-
-An automated tool to look for changes in your code-base and execute actions on it
-
+# Code Watchdog
+An automated tool to look for changes in your code-base and execute actions on it.  
 For a better reading experience [visit the documentation page](https://ramit-mitra.github.io/code-watchdog/) hosted in GitHub.
 
-### Markdown
+### What does it do ?
+This tool continuously monitors your codebase for file changes and based on the type of file, it can execute actions. Say, you're working on a PHP project and you want to run phpcbf each time you make modifications to a file, this tool helps you achieve just that !
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### What language does it support ?
+Everything. It can detect any language based on the file extension and can then act accordingly. For a curated list of code analysis tools that you can use with this, take a look at, https://github.com/mre/awesome-static-analysis 
 
-```markdown
-Syntax highlighted code block
+### What comes bundled with this ?
+It comes preconfigured to run for PHP, JS and CSS filetypes. You can extend it furthur as per your usecase. For a detailed technical overview, continue reading the Technical Documentation below. 
 
-# Header 1
-## Header 2
-### Header 3
+### Collaboration 
+Want to help make this tool even better or add new features ?  
+Fork and keep building, when your happy with the changes, raise a PR. I will be happy to look into it.  
 
-- Bulleted
-- List
+## Technical Documentation
 
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/ramit-mitra/code-watchdog/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+### Application components
