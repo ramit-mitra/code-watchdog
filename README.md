@@ -17,8 +17,6 @@ It comes preconfigured to run for PHP, JS and CSS filetypes. You can extend it f
 Want to help make this tool even better ?  
 Fork and keep building, when your happy with the changes, raise a PR. I will be happy to look into it. 
 
-## Technical Documentation
-
 ## Application components
 
 ### *config :*   
@@ -37,3 +35,11 @@ Define/Customise the messages that you want to be displayed
 ### *validator :*   
 *Validates and provides fallback insights to handle missing dependencies/artifacts*   
 Define your custom validators to handle exceptions from missing dependencies. By default, config.js is required as this is the validator to the directory configuration
+
+## Technical Documentation
+*Getting started using this tool is easy. I've developed it as an extensible framework that binds tools you want to run, to the filetype on which it needs to be executed, on change. This decoupled approach brings modularity to the project and provides an exceptional level of customization. At its core is the `index.js` that binds the appication components to the application logic. You can hook custom events and extend the use furthur as per your requirement.*   
+*All configurations are simple JSON arrays that is easy to understand and easy to configure and re-use. This tool is very lightweight and hence can be used without much overhead.*   
+   
+   
+   
+#### I'm presently looking for suggestions on how to make this tool better. Feature updates and enhancements are being worked on. To collaborate, please FORK this repository and build your enhancement. Raise a PR to contribute, and I will be happy to look into it.
