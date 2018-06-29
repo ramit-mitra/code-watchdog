@@ -19,25 +19,42 @@ require('./validator/config')(config.dir);
 /* welcome message */
 require('./module/welcome')(config.dir);
 
+/* load dependency validators */
+const depValidator = './validator/dependency/';
+
 /* 
  * VALIDATE DEPENDENCIES ARE PRESENT
  * ATTEMPT TO SETUP MISSING DEPENDENCIES
  */
+fs.readdir(depValidator, (err, files) => {
+    files.forEach(file => {
+        //load file
+        var validator = require('./validator/dependency/' + file);
+        //validate
+        if (!shell.which(validator.try)) {
+            shell.echo('\x1b[31m' + validator.fail);
+            shell.exit(1);
+        } else {
+            shell.echo('\x1b[32m' + validator.pass);
+        }
+    });
+});
+
 // 1. validate if php is present
-if (!shell.which('php')) {
-    shell.echo('\x1b[31mSorry, this script requires PHP');
-    shell.exit(1);
-}
-// 2. validate if npm is present 
-if (!shell.which('npm')) {
-    shell.echo('\x1b[31mSorry, this script requires NPM');
-    shell.exit(1);
-}
-// 3. validate if composer is present
-if (!shell.which('composer')) {
-    shell.echo('\x1b[31mSorry, this script requires COMPOSER');
-    shell.exit(1);
-}
+// if (!shell.which('php')) {
+//     shell.echo('\x1b[31mSorry, this script requires PHP');
+//     shell.exit(1);
+// }
+// // 2. validate if npm is present 
+// if (!shell.which('npm')) {
+//     shell.echo('\x1b[31mSorry, this script requires NPM');
+//     shell.exit(1);
+// }
+// // 3. validate if composer is present
+// if (!shell.which('composer')) {
+//     shell.echo('\x1b[31mSorry, this script requires COMPOSER');
+//     shell.exit(1);
+// }
 // 4. validate if other packages are available
 // a. phpcs/phpcbf
 if (!shell.which('phpcs') || !shell.which('phpcbf')) {
@@ -95,8 +112,7 @@ watch(config.dir, {
             //c. finally
             console.log('\033[0;93m✔ File Validated\033[0;37m\n');
         }
-    }
-    else if (event == 'remove') {
+    } else if (event == 'remove') {
         /* triggered on removal of the file */
         console.log('\033[0;91m✖ File \033[0;95m%s \033[0;91mremoved\033[0;37m\n', name);
     }
