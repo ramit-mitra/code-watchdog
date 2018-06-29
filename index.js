@@ -1,7 +1,7 @@
 /* 
  *  A simple filesystem watcher that allows you to hook custom actions on modified files
  *  Ramit Mitra
- *  Copyright, 2018 [Ramit]Mitra
+ *  Copyright (c) 2018 Ramit Mitra
  */
 
 /* loading framework dependencies */
