@@ -28,70 +28,29 @@ const depValidator = './validator/dependency/';
  */
 fs.readdir(depValidator, (err, files) => {
     files.forEach(file => {
-        //load file
+        // load file
         var validator = require('./validator/dependency/' + file);
-        //validate
+        // validate
         if (!shell.which(validator.try)) {
             shell.echo('\x1b[31m' + validator.fail);
-            shell.exit(1);
+            if(validator.fallback) {
+                shell.echo('\x1b[32m' + validator.fallback-message);
+                if (shell.exec(validator.fallback).code !== 0) {
+                    shell.echo('\x1b[31mError: ' + validator.fallback-fail);
+                    shell.exit(1);
+                } else {
+                    shell.echo('\x1b[32m' + validator.fallback-pass);
+                }
+            } else {
+                shell.exit(1);
+            }
         } else {
             shell.echo('\x1b[32m' + validator.pass);
         }
     });
+    // finally
+    shell.echo('\033[1;32m✓ ALL DEPENDENCIES ARE PRESENT\x1b[37m\n');
 });
-
-// 1. validate if php is present
-// if (!shell.which('php')) {
-//     shell.echo('\x1b[31mSorry, this script requires PHP');
-//     shell.exit(1);
-// }
-// // 2. validate if npm is present 
-// if (!shell.which('npm')) {
-//     shell.echo('\x1b[31mSorry, this script requires NPM');
-//     shell.exit(1);
-// }
-// // 3. validate if composer is present
-// if (!shell.which('composer')) {
-//     shell.echo('\x1b[31mSorry, this script requires COMPOSER');
-//     shell.exit(1);
-// }
-// 4. validate if other packages are available
-// a. phpcs/phpcbf
-if (!shell.which('phpcs') || !shell.which('phpcbf')) {
-    shell.echo('\x1b[31mYou donot seem to have PHP CodeSniffer installed.');
-    shell.echo('\x1b[32mThis dependency will now be installed, please wait...');
-    // installing php_codesniffer
-    if (shell.exec('composer global require squizlabs/php_codesniffer=*').code !== 0) {
-        shell.echo('\x1b[31mError: Installing PHP CodeSniffer failed, this program will now terminate !!!');
-        shell.exit(1);
-    } else {
-        shell.echo('\x1b[32m✓ PHP CodeSniffer installed.');
-    }
-}
-// b. stylelint/eslint
-if (!shell.which('stylelint')) {
-    shell.echo('\x1b[31mYou donot seem to have STYLELINT installed.');
-    shell.echo('\x1b[32mThis dependency will now be installed, please wait...');
-    // installing stylelint
-    if (shell.exec('npm install -g stylelint').code !== 0) {
-        shell.echo('\x1b[31mError: Installing Stylelint failed, this program will now terminate !!!');
-        shell.exit(1);
-    } else {
-        shell.echo('\x1b[32m✓ STYLELINT installed.');
-    }
-} else if (!shell.which('eslint')) {
-    shell.echo('\x1b[31mYou donot seem to have ESLINT installed.');
-    shell.echo('\x1b[32mThis dependency will now be installed, please wait...');
-    // installing eslint
-    if (shell.exec('npm install -g eslint').code !== 0) {
-        shell.echo('\x1b[31mError: Installing ESlint failed, this program will now terminate !!!');
-        shell.exit(1);
-    } else {
-        shell.echo('\x1b[32m✓ ESLINT installed.');
-    }
-}
-// 5. FINALLY !
-shell.echo('\033[1;32m✓ ALL DEPENDENCIES ARE PRESENT\x1b[37m\n');
 
 /* INITIATE WATCHDOG */
 watch(config.dir, {
