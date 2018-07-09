@@ -24,9 +24,10 @@ const depValidator = './validator/dependency/';
 
 /* 
  * VALIDATE DEPENDENCIES ARE PRESENT
- * ATTEMPT TO SETUP MISSING DEPENDENCIES
+ * ++ ATTEMPT TO SETUP MISSING DEPENDENCIES
  */
-fs.readdir(depValidator, (err, files) => {
+shell.echo('\033[1;35mVALIDATING DEPENDENCIES\n');
+fs.readdir(depValidator, (err, files) => {      
     files.forEach(file => {
         // load file
         var validator = require('./validator/dependency/' + file);
@@ -34,12 +35,12 @@ fs.readdir(depValidator, (err, files) => {
         if (!shell.which(validator.try)) {
             shell.echo('\x1b[31m' + validator.fail);
             if(validator.fallback) {
-                shell.echo('\x1b[32m' + validator.fallback-message);
+                shell.echo('\x1b[32m' + validator.fallbackMessage);
                 if (shell.exec(validator.fallback).code !== 0) {
-                    shell.echo('\x1b[31mError: ' + validator.fallback-fail);
+                    shell.echo('\x1b[31mError: ' + validator.fallbackFail);
                     shell.exit(1);
                 } else {
-                    shell.echo('\x1b[32m' + validator.fallback-pass);
+                    shell.echo('\x1b[32m' + validator.fallbackPass);
                 }
             } else {
                 shell.exit(1);
@@ -49,7 +50,7 @@ fs.readdir(depValidator, (err, files) => {
         }
     });
     // finally
-    shell.echo('\033[1;32m✓ ALL DEPENDENCIES ARE PRESENT\x1b[37m\n');
+    shell.echo('\n\033[1;32m✓ ALL DEPENDENCIES ARE PRESENT\x1b[37m\n');
 });
 
 /* INITIATE WATCHDOG */

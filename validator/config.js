@@ -1,5 +1,5 @@
-var fs = require("fs");
-var shell = require("shelljs");
+const fs = require("fs");
+const shell = require("shelljs");
 
 module.exports = function (DIR) {
 	if (!fs.existsSync(DIR)) {
