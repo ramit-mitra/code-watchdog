@@ -85,7 +85,7 @@ watch(config.dir, {
 
 /* Web Console Interface */
 http.createServer(function(req, res) {
-    res.writeHead(200, {'Content-Type': 'text'});
+    res.writeHead(200, {'Content-Type': 'text/html'});
     res.write(consoleOutput);
     res.end();
 }).listen(parseInt(config.port));
