@@ -6,6 +6,7 @@
 
 /* loading framework dependencies */
 const watch = require('node-watch');
+const http = require('http');
 const path = require('path');
 const shell = require('shelljs');
 const fs = require('fs');
@@ -18,6 +19,9 @@ require('./validator/config')(config.dir);
 
 /* welcome message */
 require('./module/welcome')(config.dir);
+
+/* web console message */
+var consoleOutput = require('./module/webconsole')(config.dir);
 
 /* load dependency validators */
 const depValidator = './validator/dependency/';
@@ -34,8 +38,10 @@ fs.readdir(depValidator, (err, files) => {
         // validate
         if (!shell.which(validator.try)) {
             shell.echo('\x1b[31m' + validator.fail);
+            // is fallback available
             if(validator.fallback) {
                 shell.echo('\x1b[32m' + validator.fallbackMessage);
+                // try to install missing dependency
                 if (shell.exec(validator.fallback).code !== 0) {
                     shell.echo('\x1b[31mError: ' + validator.fallbackFail);
                     shell.exit(1);
@@ -62,13 +68,12 @@ watch(config.dir, {
         /* triggered on create or modification of files */
         /* notify about filechange */
         console.log('\033[0;93m✚ File \033[1;32m%s \033[0;93mchanged\033[0;37m', name);
-
         //a. check if a hook is present for this modified file filetype
         if (fs.existsSync('./hook/' + path.extname(name) + '.js')) {
             //b. hook available, proceed to execution
             var act = require('./hook/' + path.extname(name))(name);
             console.log('\033[1;35m ☁ Running ' + act.name + ' to fix possible syntactical issues\033[0;37m');
-            shell.exec(act.command);
+            consoleOutput += shell.exec(act.command);
             //c. finally
             console.log('\033[0;93m✔ File Validated\033[0;37m\n');
         }
@@ -77,3 +82,10 @@ watch(config.dir, {
         console.log('\033[0;91m✖ File \033[0;95m%s \033[0;91mremoved\033[0;37m\n', name);
     }
 });
+
+/* Web Console Interface */
+http.createServer(function(req, res) {
+    res.writeHead(200, {'Content-Type': 'text'});
+    res.write(consoleOutput);
+    res.end();
+}).listen(parseInt(config.port));
