@@ -56,7 +56,8 @@ fs.readdir(depValidator, (err, files) => {
         }
     });
     // finally
-    shell.echo('\n\033[1;32m✓ ALL DEPENDENCIES ARE PRESENT\x1b[37m\n');
+    shell.echo('\n\033[1;32m✓ ALL DEPENDENCIES ARE PRESENT\033[1;33m');
+    shell.echo('\n======================================================================\x1b[37m\n');
 });
 
 /* INITIATE WATCHDOG */
