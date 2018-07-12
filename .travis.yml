@@ -19,4 +19,4 @@ install:
 script:
   - node --version
   - npm --version
-  - node watch
+  - npm run watch
