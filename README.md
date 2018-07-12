@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ramit-mitra/code-watchdog.svg?branch=master)](https://travis-ci.org/ramit-mitra/code-watchdog)
+
 # Code Watchdog
 An automated tool to look for changes in your code-base and execute SCA tools on it.  
 For a better reading experience [visit the documentation page](https://ramit-mitra.github.io/code-watchdog/) hosted in GitHub.
