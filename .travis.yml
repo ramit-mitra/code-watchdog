@@ -1,0 +1,22 @@
+dist: trusty
+sudo: false
+
+language: node_js
+node_js:
+  - "lts/*"
+
+before_install:
+- git clone https://github.com/ramit-mitra/code-watchdog.git
+
+cache:
+  directories:
+    - "node_modules"
+
+install:
+- cd code-watchdog
+- npm install
+
+script:
+  - node --version
+  - npm --version
+  - node run watch
